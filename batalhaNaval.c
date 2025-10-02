@@ -1,40 +1,66 @@
 #include <stdio.h>
 
-// Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
+#define TAMANHO_TABULEIRO 10
+#define TAMANHO_NAVIO 3
+#define AGUA 0
+#define NAVIO 3
 
 int main() {
-    int tabuleiro[10][10];
+    int tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
 
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
-            tabuleiro[i][j] = 0;
+    // Preenche todo o tabuleiro com o valor da constante AGUA
+    for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
+        for (int j = 0; j < TAMANHO_TABULEIRO; j++) {
+            tabuleiro[i][j] = AGUA;
         }
     }
 
-    int linhaNavioVertical = 2;
-    int colunaNavioVertical = 3;
-
-    if (linhaNavioVertical + 3 <= 10) {
-        for (int i = 0; i < 3; i++) {
-            tabuleiro[linhaNavioVertical + i][colunaNavioVertical] = 3;
+    // Posicionamento dos Quatro Navios
+    // Navio 1 Horizontal
+    int linhaNavio1 = 1;
+    int colunaNavio1 = 1;
+    if (colunaNavio1 + TAMANHO_NAVIO <= TAMANHO_TABULEIRO) {
+        for (int i = 0; i < TAMANHO_NAVIO; i++) {
+            tabuleiro[linhaNavio1][colunaNavio1 + i] = NAVIO;
         }
     }
 
-    int linhaNavioHorizontal = 5;
-    int colunaNavioHorizontal = 5;
-
-    if (colunaNavioHorizontal + 3 <= 10) {
-        for (int i = 0; i < 3; i++) {
-            tabuleiro[linhaNavioHorizontal][colunaNavioHorizontal + i] = 3;
+    // Navio 2 Vertical
+    int linhaNavio2 = 3;
+    int colunaNavio2 = 8;
+    if (linhaNavio2 + TAMANHO_NAVIO <= TAMANHO_TABULEIRO) {
+        for (int i = 0; i < TAMANHO_NAVIO; i++) {
+            tabuleiro[linhaNavio2 + i][colunaNavio2] = NAVIO;
         }
     }
 
+    // Navio 3 Diagonal de cima-esquerda para baixo-direita
+    int linhaNavio3 = 3;
+    int colunaNavio3 = 1;
+    // Valida se o navio cabe tanto na vertical quanto na horizontal
+    if (linhaNavio3 + TAMANHO_NAVIO <= TAMANHO_TABULEIRO && colunaNavio3 + TAMANHO_NAVIO <= TAMANHO_TABULEIRO) {
+        for (int i = 0; i < TAMANHO_NAVIO; i++) {
+            // Incrementa a linha E a coluna a cada passo
+            tabuleiro[linhaNavio3 + i][colunaNavio3 + i] = NAVIO;
+        }
+    }
+
+    // Navio 4 Diagonal de cima-direita para baixo-esquerda
+    int linhaNavio4 = 6;
+    int colunaNavio4 = 4;
+    // Valida se o navio cabe na vertical
+    if (linhaNavio4 + TAMANHO_NAVIO <= TAMANHO_TABULEIRO && colunaNavio4 - TAMANHO_NAVIO >= -1) {
+        for (int i = 0; i < TAMANHO_NAVIO; i++) {
+            // Incrementa a linha e decrementa a coluna a cada passo.
+            tabuleiro[linhaNavio4 + i][colunaNavio4 - i] = NAVIO;
+        }
+    }
+
+    // Exibição do Tabuleiro
     printf("TABULEIRO DE BATALHA NAVAL\n");
 
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
+    for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
+        for (int j = 0; j < TAMANHO_TABULEIRO; j++) {
             printf("%d ", tabuleiro[i][j]);
         }
         
